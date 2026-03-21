@@ -1,0 +1,387 @@
+{{ 'section-lookbook.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'lookbook.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign products_count = 0
+  for block in section.blocks
+    if block.type == 'product' and block.settings.product != blank
+      assign products_count = products_count | plus: 1
+    endif
+  endfor
+-%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    <div class="lookbook{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+
+      <!-- Left: Lookbook image -->
+      <div class="lookbook__media">
+        <div class="lookbook__image-container">
+          {%- if section.settings.image != blank -%}
+            {{
+              section.settings.image
+              | image_url: width: 1500
+              | image_tag:
+                widths: '375, 550, 750, 1100, 1500',
+                sizes: '(min-width: 750px) 50vw, 100vw',
+                class: 'lookbook__image',
+                fetchpriority: 'auto'
+            }}
+          {%- else -%}
+            {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg lookbook__image-placeholder' }}
+          {%- endif -%}
+
+          {%- if products_count > 0 -%}
+            <div class="lookbook__shop-button-wrapper">
+              <button
+                id="LookbookOpen-{{ section.id }}"
+                class="lookbook__shop-button button button--secondary"
+                aria-haspopup="dialog"
+                aria-controls="LookbookModal-{{ section.id }}"
+              >
+                {{ section.settings.button_label | default: 'Shop the look' | escape }}
+              </button>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Right: Text content -->
+      <div class="lookbook__content">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="lookbook__heading {{ section.settings.heading_size }}">
+            {{ section.settings.heading | escape }}
+          </h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <div class="lookbook__description rte">
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+{%- if products_count > 0 -%}
+  <lookbook-modal
+    data-section-id="{{ section.id }}"
+    data-money-format="{{ shop.money_format | escape }}"
+    data-add-to-cart="{{ 'products.product.add_to_cart' | t | escape }}"
+    data-sold-out="{{ 'products.product.sold_out' | t | escape }}"
+    data-unavailable="{{ 'products.product.unavailable' | t | escape }}"
+  >
+    <dialog
+      id="LookbookModal-{{ section.id }}"
+      class="lookbook-modal"
+      aria-label="Shop the look"
+      aria-modal="true"
+    >
+      <div class="lookbook-modal__inner">
+
+        <button
+          class="lookbook-modal__close"
+          aria-label="{{ 'accessibility.close' | t }}"
+          type="button"
+        >
+          <span class="svg-wrapper">
+            {{- 'icon-close.svg' | inline_asset_content -}}
+          </span>
+        </button>
+
+        <div class="lookbook-modal__layout">
+
+          <!-- Left: lookbook image -->
+          <div class="lookbook-modal__image-column" aria-hidden="true">
+            {%- if section.settings.image != blank -%}
+              {{
+                section.settings.image
+                | image_url: width: 900
+                | image_tag:
+                  widths: '375, 550, 750, 900',
+                  sizes: '40vw',
+                  class: 'lookbook-modal__image'
+              }}
+            {%- else -%}
+              {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg lookbook-modal__image-placeholder' }}
+            {%- endif -%}
+          </div>
+
+          <!-- Right: product list -->
+          <div class="lookbook-modal__products" role="list">
+
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'product' and block.settings.product != blank -%}
+                {%- assign product = block.settings.product -%}
+                {%- assign product_form_id = 'lookbook-form-' | append: section.id | append: '-' | append: block.id -%}
+
+                <lookbook-product-item
+                  class="lookbook-product"
+                  role="listitem"
+                  {{ block.shopify_attributes }}
+                >
+                  <script type="application/json">
+                    {{ product.variants | json }}
+                  </script>
+
+                  <!-- Product image -->
+                  <div class="lookbook-product__media">
+                    {%- if product.featured_image != blank -%}
+                      <a href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+                        {{
+                          product.featured_image
+                          | image_url: width: 200
+                          | image_tag:
+                            widths: '100, 150, 200',
+                            sizes: '100px',
+                            class: 'lookbook-product__image',
+                            alt: product.featured_image.alt | escape
+                        }}
+                      </a>
+                    {%- else -%}
+                      {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg lookbook-product__image-placeholder' }}
+                    {%- endif -%}
+                  </div>
+
+                  <!-- Product info -->
+                  <div class="lookbook-product__info">
+
+                    <div class="lookbook-product__header">
+                      <a href="{{ product.url }}" class="lookbook-product__title">
+                        {{ product.title | escape }}
+                      </a>
+                      <div class="lookbook-product__price-wrapper">
+                        {%- render 'price', product: product, use_variant: true -%}
+                      </div>
+                    </div>
+
+                    {%- unless product.has_only_default_variant -%}
+                      <div class="lookbook-product__variants">
+                        {%- for option in product.options_with_values -%}
+                          <div class="product-form__input product-form__input--dropdown">
+                            <label
+                              class="form__label"
+                              for="LookbookOption-{{ section.id }}-{{ block.id }}-{{ forloop.index0 }}"
+                            >
+                              {{ option.name }}
+                            </label>
+                            <div class="select">
+                              <select
+                                id="LookbookOption-{{ section.id }}-{{ block.id }}-{{ forloop.index0 }}"
+                                class="select__select lookbook-variant-select"
+                                name="options[{{ option.name | escape }}]"
+                                data-option-position="{{ forloop.index0 }}"
+                                aria-label="{{ option.name | escape }}"
+                              >
+                                {%- for value in option.values -%}
+                                  <option
+                                    value="{{ value | escape }}"
+                                    {%- if value.selected %} selected="selected"{% endif %}
+                                    {%- unless value.available %} disabled{% endunless %}
+                                  >
+                                    {{- value -}}
+                                    {%- unless value.available %} - {{ 'products.product.sold_out' | t }}{%- endunless %}
+                                  </option>
+                                {%- endfor -%}
+                              </select>
+                              <span class="svg-wrapper">
+                                {{- 'icon-caret.svg' | inline_asset_content -}}
+                              </span>
+                            </div>
+                          </div>
+                        {%- endfor -%}
+                      </div>
+                    {%- endunless -%}
+
+                    <product-form
+                      class="product-form"
+                      data-hide-errors="false"
+                      data-section-id="{{ section.id }}"
+                    >
+                      <div class="product-form__error-message-wrapper" role="alert" hidden>
+                        <span class="svg-wrapper">
+                          {{- 'icon-error.svg' | inline_asset_content -}}
+                        </span>
+                        <span class="product-form__error-message"></span>
+                      </div>
+
+                      {%- form 'product',
+                        product,
+                        id: product_form_id,
+                        class: 'form',
+                        novalidate: 'novalidate',
+                        data-type: 'add-to-cart-form'
+                      -%}
+                        <input
+                          type="hidden"
+                          name="id"
+                          value="{{ product.selected_or_first_available_variant.id }}"
+                          class="product-variant-id"
+                          {%- if product.selected_or_first_available_variant.available == false
+                            or product.selected_or_first_available_variant == null
+                          %}
+                            disabled
+                          {%- endif %}
+                        >
+
+                        <button
+                          type="submit"
+                          name="add"
+                          class="product-form__submit button button--full-width button--primary"
+                          {%- if product.selected_or_first_available_variant.available == false
+                            or product.selected_or_first_available_variant == null
+                          %}
+                            disabled
+                          {%- endif %}
+                        >
+                          <span>
+                            {%- if product.selected_or_first_available_variant == null -%}
+                              {{ 'products.product.unavailable' | t }}
+                            {%- elsif product.selected_or_first_available_variant.available == false -%}
+                              {{ 'products.product.sold_out' | t }}
+                            {%- else -%}
+                              {{ 'products.product.add_to_cart' | t }}
+                            {%- endif -%}
+                          </span>
+                          {%- render 'loading-spinner' -%}
+                        </button>
+                      {%- endform -%}
+                    </product-form>
+
+                  </div>
+                </lookbook-product-item>
+
+              {%- endif -%}
+            {%- endfor -%}
+
+          </div><!-- /.lookbook-modal__products -->
+        </div><!-- /.lookbook-modal__layout -->
+      </div><!-- /.lookbook-modal__inner -->
+    </dialog>
+  </lookbook-modal>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Lookbook",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Lookbook image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop the look"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" },
+        { "value": "hxl", "label": "Extra large" }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Our latest collection demonstrates an elegant eccentricity — bold patterns inspired by traditional nomadic dressing.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop the look"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lookbook",
+      "blocks": [
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" }
+      ]
+    }
+  ]
+}
+{% endschema %}
