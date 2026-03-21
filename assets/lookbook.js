@@ -36,6 +36,16 @@ if (!customElements.get('lookbook-modal')) {
             this._returnFocusEl = null;
           }
         });
+
+        if (this.dataset.closeOnAdd === 'true') {
+          this._unsubscribeCart = subscribe(PUB_SUB_EVENTS.cartUpdate, () => {
+            if (this.dialog.open) this.close();
+          });
+        }
+      }
+
+      disconnectedCallback() {
+        this._unsubscribeCart?.();
       }
 
       open() {

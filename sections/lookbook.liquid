@@ -2,6 +2,8 @@
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
 
+<script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'lookbook.js' | asset_url }}" defer="defer"></script>
 
@@ -91,6 +93,7 @@
     data-add-to-cart="{{ 'products.product.add_to_cart' | t | escape }}"
     data-sold-out="{{ 'products.product.sold_out' | t | escape }}"
     data-unavailable="{{ 'products.product.unavailable' | t | escape }}"
+    data-close-on-add="{{ section.settings.close_on_add }}"
   >
     <dialog
       id="LookbookModal-{{ section.id }}"
@@ -294,6 +297,16 @@
       "type": "image_picker",
       "id": "image",
       "label": "Lookbook image"
+    },
+     {
+      "type": "header",
+      "content": "Behavior of the modal"
+    },
+    {
+      "type": "checkbox",
+      "id": "close_on_add",
+      "label": "Close/Show modal after adding to cart",
+      "default": false
     },
     {
       "type": "text",
