@@ -212,7 +212,7 @@
   gap: 2rem;
   padding: 2.4rem 0;
   border-bottom: 0.1rem solid rgba(0, 0, 0, 0.09);
-  align-items: start;
+  align-items: stretch;
 }
 
 .lookbook-product:first-child {
@@ -227,14 +227,11 @@
 /* ---------- Product media ---------- */
 
 .lookbook-product__media {
-  flex-shrink: 0;
-  background: #e0d5c5;
-  aspect-ratio: 1;
   overflow: hidden;
 }
 
 .lookbook-product__media a {
-  display: flex;
+  display: block;
   width: 100%;
   height: 100%;
 }
@@ -242,14 +239,14 @@
 .lookbook-product__image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
-  padding: 1rem;
 }
 
 .lookbook-product__image-placeholder {
   width: 12rem;
-  height: 12rem;
+  height: 100%;
+  min-height: 12rem;
   display: block;
 }
 
@@ -475,5 +472,6 @@
   .lookbook-product {
     grid-template-columns: 9rem 1fr;
     gap: 1.4rem;
+    align-items: stretch;
   }
 }
