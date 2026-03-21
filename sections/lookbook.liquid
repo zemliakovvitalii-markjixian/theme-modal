@@ -178,6 +178,9 @@
                         {%- if block.settings.short_description != blank -%}
                           <p class="lookbook-product__description">{{ block.settings.short_description | escape }}</p>
                         {%- endif -%}
+                        {%- if block.settings.subtitle != blank -%}
+                          <p class="lookbook-product__description">{{ block.settings.subtitle | escape }}</p>
+                        {%- endif -%}
                       </div>
                       <div class="lookbook-product__price-wrapper">
                         {%- render 'price', product: product, use_variant: true -%}
@@ -401,6 +404,12 @@
           "id": "short_description",
           "label": "Short description",
           "info": "Short description shown under the product name in the modal"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "info": "E.g. color or material (shown below description)"
         }
       ]
     }
