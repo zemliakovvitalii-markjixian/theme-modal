@@ -1,0 +1,367 @@
+/* ============================================================
+   LOOKBOOK SECTION
+   ============================================================ */
+
+.lookbook {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+@media screen and (min-width: 750px) {
+  .lookbook {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 5rem;
+  }
+}
+
+/* ---------- Lookbook image (left column) ---------- */
+
+.lookbook__media {
+  position: relative;
+}
+
+.lookbook__image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.lookbook__image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.lookbook__image-placeholder {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  display: block;
+}
+
+.lookbook__shop-button-wrapper {
+  position: absolute;
+  bottom: 2.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+/* ---------- Lookbook content (right column) ---------- */
+
+.lookbook__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.lookbook__heading {
+  margin: 0;
+}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+
+.lookbook-modal {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.lookbook-modal[open] {
+  display: flex;
+}
+
+.lookbook-modal::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.lookbook-modal__inner {
+  position: relative;
+  background: rgb(var(--color-base-background-1));
+  width: min(95vw, 1200px);
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Close button ---------- */
+
+.lookbook-modal__close {
+  position: absolute;
+  top: 1.6rem;
+  right: 1.6rem;
+  z-index: 10;
+  background: rgb(var(--color-base-background-1));
+  border: 0.1rem solid rgba(var(--color-base-text), 0.1);
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s ease;
+}
+
+.lookbook-modal__close:hover,
+.lookbook-modal__close:focus-visible {
+  background: rgb(var(--color-base-background-2));
+  outline: 0.2rem solid rgba(var(--color-base-text), 0.3);
+  outline-offset: 0.2rem;
+}
+
+.lookbook-modal__close .svg-wrapper {
+  height: 2rem;
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lookbook-modal__close svg {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+/* ---------- Modal layout (two columns) ---------- */
+
+.lookbook-modal__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+@media screen and (min-width: 750px) {
+  .lookbook-modal__layout {
+    grid-template-columns: 42% 1fr;
+    overflow-y: hidden;
+  }
+}
+
+/* ---------- Modal image (left) ---------- */
+
+.lookbook-modal__image-column {
+  display: none;
+}
+
+@media screen and (min-width: 750px) {
+  .lookbook-modal__image-column {
+    display: block;
+    overflow: hidden;
+    max-height: 90vh;
+  }
+}
+
+.lookbook-modal__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lookbook-modal__image-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 40rem;
+  display: block;
+}
+
+/* ---------- Products list (right) ---------- */
+
+.lookbook-modal__products {
+  overflow-y: auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media screen and (min-width: 750px) {
+  .lookbook-modal__products {
+    padding: 5rem 3.2rem 3.2rem;
+    max-height: 90vh;
+  }
+}
+
+/* ============================================================
+   PRODUCT ITEM
+   ============================================================ */
+
+.lookbook-product {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1.6rem;
+  padding: 2rem 0;
+  border-bottom: 0.1rem solid rgba(var(--color-base-text), 0.08);
+  align-items: start;
+}
+
+.lookbook-product:first-child {
+  padding-top: 0;
+}
+
+.lookbook-product:last-child {
+  border-bottom: none;
+}
+
+/* ---------- Product media ---------- */
+
+.lookbook-product__media {
+  flex-shrink: 0;
+}
+
+.lookbook-product__media a {
+  display: block;
+}
+
+.lookbook-product__image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+
+.lookbook-product__image-placeholder {
+  width: 9rem;
+  height: 9rem;
+  display: block;
+}
+
+/* ---------- Product info ---------- */
+
+.lookbook-product__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.lookbook-product__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.lookbook-product__title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: rgb(var(--color-base-text));
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+.lookbook-product__title:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+/* ---------- Price ---------- */
+
+.lookbook-product__price-wrapper .price {
+  font-size: 1.4rem;
+}
+
+.lookbook-product__price-wrapper .price__container {
+  gap: 0.4rem;
+}
+
+/* ---------- Variant selects ---------- */
+
+.lookbook-product__variants {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.lookbook-product__variants .product-form__input {
+  margin: 0;
+}
+
+.lookbook-product__variants .product-form__input--dropdown {
+  min-width: unset;
+}
+
+.lookbook-product__variants .form__label {
+  font-size: 1.2rem;
+  margin-bottom: 0.4rem;
+}
+
+.lookbook-product__variants .select__select {
+  font-size: 1.3rem;
+  min-height: 3.6rem;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* ---------- Add to cart button ---------- */
+
+.lookbook-product .product-form {
+  margin-top: 0.4rem;
+}
+
+.lookbook-product .product-form__submit {
+  min-height: 4rem;
+  font-size: 1.3rem;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+}
+
+.lookbook-product .product-form__error-message-wrapper {
+  margin-bottom: 0.8rem;
+  font-size: 1.2rem;
+}
+
+/* ============================================================
+   RESPONSIVE TWEAKS (min-width: 320px baseline already covered)
+   ============================================================ */
+
+@media screen and (max-width: 749px) {
+  .lookbook-modal__inner {
+    width: 100%;
+    max-height: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .lookbook-modal__layout {
+    max-height: 100vh;
+  }
+
+  .lookbook-modal__close {
+    top: 1.2rem;
+    right: 1.2rem;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 479px) {
+  .lookbook-product {
+    grid-template-columns: 7rem 1fr;
+    gap: 1.2rem;
+  }
+
+  .lookbook-product__image-placeholder {
+    width: 7rem;
+    height: 7rem;
+  }
+}
