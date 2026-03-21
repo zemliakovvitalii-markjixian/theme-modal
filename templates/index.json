@@ -55,21 +55,24 @@
           "type": "product",
           "settings": {
             "product": "the-compare-at-price-snowboard",
-            "short_description": "Slim waisted tailored jacket"
+            "short_description": "Slim waisted tailored jacket",
+            "subtitle": "Black"
           }
         },
         "product_xcaXkH": {
           "type": "product",
           "settings": {
             "product": "the-videographer-snowboard",
-            "short_description": "Slim waisted tailored jacket"
+            "short_description": "Slim waisted tailored jacket",
+            "subtitle": "Black"
           }
         },
         "product_FikAmt": {
           "type": "product",
           "settings": {
             "product": "the-multi-location-snowboard",
-            "short_description": "Slim waisted tailored jacket"
+            "short_description": "Slim waisted tailored jacket",
+            "subtitle": "Black"
           }
         }
       },
