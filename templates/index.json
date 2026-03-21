@@ -78,7 +78,7 @@
       "name": "Lookbook",
       "settings": {
         "image": "shopify://shop_images/lookbook_pf22_02.webp",
-        "close_on_add": true,
+        "close_on_add": false,
         "heading": "Shop the look",
         "heading_size": "h1",
         "description": "<p>Our latest collection demonstrates an elegant eccentricity — bold patterns inspired by traditional nomadic dressing.</p>",
