@@ -51,18 +51,6 @@
     "lookbook_PwW3H3": {
       "type": "lookbook",
       "blocks": {
-        "product_xcaXkH": {
-          "type": "product",
-          "settings": {
-            "product": "the-videographer-snowboard"
-          }
-        },
-        "product_jkaeqq": {
-          "type": "product",
-          "settings": {
-            "product": "the-collection-snowboard-hydrogen"
-          }
-        },
         "product_JCLNUT": {
           "type": "product",
           "settings": {
@@ -74,17 +62,23 @@
           "settings": {
             "product": "the-compare-at-price-snowboard"
           }
+        },
+        "product_xcaXkH": {
+          "type": "product",
+          "settings": {
+            "product": "the-videographer-snowboard"
+          }
         }
       },
       "block_order": [
-        "product_xcaXkH",
-        "product_jkaeqq",
         "product_JCLNUT",
-        "product_FikAmt"
+        "product_FikAmt",
+        "product_xcaXkH"
       ],
       "name": "Lookbook",
       "settings": {
         "image": "shopify://shop_images/Main_b13ad453-477c-4ed1-9b43-81f3345adfd6.jpg",
+        "close_on_add": true,
         "heading": "Shop the look",
         "heading_size": "h1",
         "description": "<p>Our latest collection demonstrates an elegant eccentricity — bold patterns inspired by traditional nomadic dressing.</p>",
