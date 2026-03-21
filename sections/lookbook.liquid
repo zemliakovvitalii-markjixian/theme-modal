@@ -171,51 +171,57 @@
                   <div class="lookbook-product__info">
 
                     <div class="lookbook-product__header">
-                      <a href="{{ product.url }}" class="lookbook-product__title">
-                        {{ product.title | escape }}
-                      </a>
+                      <div class="lookbook-product__header-left">
+                        <a href="{{ product.url }}" class="lookbook-product__title">
+                          {{ product.title | upcase | escape }}
+                        </a>
+                        {%- if block.settings.short_description != blank -%}
+                          <p class="lookbook-product__description">{{ block.settings.short_description | escape }}</p>
+                        {%- endif -%}
+                      </div>
                       <div class="lookbook-product__price-wrapper">
                         {%- render 'price', product: product, use_variant: true -%}
                       </div>
                     </div>
 
-                    {%- unless product.has_only_default_variant -%}
-                      <div class="lookbook-product__variants">
-                        {%- for option in product.options_with_values -%}
-                          <div class="product-form__input product-form__input--dropdown">
-                            <label
-                              class="form__label"
-                              for="LookbookOption-{{ section.id }}-{{ block.id }}-{{ forloop.index0 }}"
-                            >
-                              {{ option.name }}
-                            </label>
-                            <div class="select">
-                              <select
-                                id="LookbookOption-{{ section.id }}-{{ block.id }}-{{ forloop.index0 }}"
-                                class="select__select lookbook-variant-select"
-                                name="options[{{ option.name | escape }}]"
-                                data-option-position="{{ forloop.index0 }}"
-                                aria-label="{{ option.name | escape }}"
+                    <div class="lookbook-product__actions">
+                      {%- unless product.has_only_default_variant -%}
+                        <div class="lookbook-product__variants">
+                          {%- for option in product.options_with_values -%}
+                            <div class="product-form__input product-form__input--dropdown">
+                              <label
+                                class="form__label visually-hidden"
+                                for="LookbookOption-{{ section.id }}-{{ block.id }}-{{ forloop.index0 }}"
                               >
-                                {%- for value in option.values -%}
-                                  <option
-                                    value="{{ value | escape }}"
-                                    {%- if value.selected %} selected="selected"{% endif %}
-                                    {%- unless value.available %} disabled{% endunless %}
-                                  >
-                                    {{- value -}}
-                                    {%- unless value.available %} - {{ 'products.product.sold_out' | t }}{%- endunless %}
-                                  </option>
-                                {%- endfor -%}
-                              </select>
-                              <span class="svg-wrapper">
-                                {{- 'icon-caret.svg' | inline_asset_content -}}
-                              </span>
+                                {{ option.name }}
+                              </label>
+                              <div class="select">
+                                <select
+                                  id="LookbookOption-{{ section.id }}-{{ block.id }}-{{ forloop.index0 }}"
+                                  class="select__select lookbook-variant-select"
+                                  name="options[{{ option.name | escape }}]"
+                                  data-option-position="{{ forloop.index0 }}"
+                                  aria-label="{{ option.name | escape }}"
+                                >
+                                  {%- for value in option.values -%}
+                                    <option
+                                      value="{{ value | escape }}"
+                                      {%- if value.selected %} selected="selected"{% endif %}
+                                      {%- unless value.available %} disabled{% endunless %}
+                                    >
+                                      {{- value -}}
+                                      {%- unless value.available %} - {{ 'products.product.sold_out' | t }}{%- endunless %}
+                                    </option>
+                                  {%- endfor -%}
+                                </select>
+                                <span class="svg-wrapper">
+                                  {{- 'icon-caret.svg' | inline_asset_content -}}
+                                </span>
+                              </div>
                             </div>
-                          </div>
-                        {%- endfor -%}
-                      </div>
-                    {%- endunless -%}
+                          {%- endfor -%}
+                        </div>
+                      {%- endunless -%}
 
                     <product-form
                       class="product-form"
@@ -251,7 +257,7 @@
                         <button
                           type="submit"
                           name="add"
-                          class="product-form__submit button button--full-width button--primary"
+                          class="product-form__submit button button--full-width button--secondary"
                           {%- if product.selected_or_first_available_variant.available == false
                             or product.selected_or_first_available_variant == null
                           %}
@@ -271,6 +277,7 @@
                         </button>
                       {%- endform -%}
                     </product-form>
+                    </div>
 
                   </div>
                 </lookbook-product-item>
@@ -382,6 +389,12 @@
           "type": "product",
           "id": "product",
           "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "short_description",
+          "label": "Short description",
+          "info": "Short description shown under the product name in the modal"
         }
       ]
     }

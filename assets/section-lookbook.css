@@ -86,44 +86,44 @@
 }
 
 .lookbook-modal::backdrop {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.45);
 }
 
 .lookbook-modal__inner {
   position: relative;
-  background: rgb(var(--color-background));
-  width: min(95vw, 1200px);
-  max-height: 90vh;
+  background: #fff;
+  width: min(96vw, 1060px);
+  max-height: 92vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.18);
 }
 
 /* ---------- Close button ---------- */
 
 .lookbook-modal__close {
   position: absolute;
-  top: 1.6rem;
-  right: 1.6rem;
+  top: 1.2rem;
+  right: 1.2rem;
   z-index: 10;
-  background: rgb(var(--color-background));
-  border: 0.1rem solid rgba(var(--color-foreground), 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
   border-radius: 50%;
-  width: 4rem;
-  height: 4rem;
+  width: 3.4rem;
+  height: 3.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   padding: 0;
-  transition: background 0.2s ease;
+  transition: background 0.15s ease;
 }
 
 .lookbook-modal__close:hover,
 .lookbook-modal__close:focus-visible {
-  background: rgb(var(--color-background));
-  outline: 0.2rem solid rgba(var(--color-foreground), 0.3);
-  outline-offset: 0.2rem;
+  background: #fff;
+  outline: none;
 }
 
 .lookbook-modal__close .svg-wrapper {
@@ -135,22 +135,22 @@
 }
 
 .lookbook-modal__close svg {
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 1.4rem;
+  height: 1.4rem;
 }
 
-/* ---------- Modal layout (two columns) ---------- */
+/* ---------- Modal layout ---------- */
 
 .lookbook-modal__layout {
   display: grid;
   grid-template-columns: 1fr;
-  max-height: 90vh;
+  max-height: 92vh;
   overflow-y: auto;
 }
 
 @media screen and (min-width: 750px) {
   .lookbook-modal__layout {
-    grid-template-columns: 42% 1fr;
+    grid-template-columns: 46% 1fr;
     overflow-y: hidden;
   }
 }
@@ -165,7 +165,7 @@
   .lookbook-modal__image-column {
     display: block;
     overflow: hidden;
-    max-height: 90vh;
+    max-height: 92vh;
   }
 }
 
@@ -187,17 +187,18 @@
 
 .lookbook-modal__products {
   overflow-y: auto;
-  padding: 2rem;
+  padding: 3.2rem 3.2rem 3.2rem;
   display: flex;
   flex-direction: column;
   gap: 0;
+  background: #f5f5f5;
   -webkit-overflow-scrolling: touch;
 }
 
 @media screen and (min-width: 750px) {
   .lookbook-modal__products {
-    padding: 5rem 3.2rem 3.2rem;
-    max-height: 90vh;
+    max-height: 92vh;
+    padding: 4rem 3.6rem 3.6rem;
   }
 }
 
@@ -207,10 +208,10 @@
 
 .lookbook-product {
   display: grid;
-  grid-template-columns: 9rem 1fr;
-  gap: 1.6rem;
-  padding: 2rem 0;
-  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  grid-template-columns: 12rem 1fr;
+  gap: 2rem;
+  padding: 2.4rem 0;
+  border-bottom: 0.1rem solid rgba(0, 0, 0, 0.09);
   align-items: start;
 }
 
@@ -220,29 +221,35 @@
 
 .lookbook-product:last-child {
   border-bottom: none;
+  padding-bottom: 0;
 }
 
 /* ---------- Product media ---------- */
 
 .lookbook-product__media {
   flex-shrink: 0;
+  background: #e0d5c5;
+  aspect-ratio: 1;
+  overflow: hidden;
 }
 
 .lookbook-product__media a {
-  display: block;
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
 .lookbook-product__image {
   width: 100%;
-  height: auto;
-  aspect-ratio: 1;
-  object-fit: cover;
+  height: 100%;
+  object-fit: contain;
   display: block;
+  padding: 1rem;
 }
 
 .lookbook-product__image-placeholder {
-  width: 9rem;
-  height: 9rem;
+  width: 12rem;
+  height: 12rem;
   display: block;
 }
 
@@ -259,39 +266,89 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 1rem;
-  flex-wrap: wrap;
+}
+
+.lookbook-product__header-left {
+  flex: 1;
+  min-width: 0;
 }
 
 .lookbook-product__title {
+  display: block;
   font-size: 1.4rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: rgb(var(--color-foreground));
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #111;
   text-decoration: none;
-  line-height: 1.4;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
 }
 
 .lookbook-product__title:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.3rem;
+  opacity: 0.65;
+}
+
+.lookbook-product__description {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #555;
+  line-height: 1.55;
 }
 
 /* ---------- Price ---------- */
 
-.lookbook-product__price-wrapper .price {
-  font-size: 1.4rem;
+.lookbook-product__price-wrapper {
+  text-align: right;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Hide the regular price block when on sale */
+.lookbook-product__price-wrapper .price--on-sale .price__regular {
+  display: none;
 }
 
 .lookbook-product__price-wrapper .price__container {
-  gap: 0.4rem;
-}
-
-/* ---------- Variant selects ---------- */
-
-.lookbook-product__variants {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  align-items: flex-end;
+  gap: 0.15rem;
+}
+
+.lookbook-product__price-wrapper .price-item--sale {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #c23b2a;
+  display: block;
+}
+
+.lookbook-product__price-wrapper .price--on-sale .price__sale .price-item--regular {
+  font-size: 1.25rem;
+  color: #888;
+  text-decoration: line-through;
+  font-weight: 400;
+  display: block;
+}
+
+.lookbook-product__price-wrapper .price__regular .price-item--regular {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #111;
+  display: block;
+}
+
+
+.lookbook-product__actions {
+  display: flex;
+  align-items: stretch;
+  gap: 1rem;
+  margin-top: 0.4rem;
+}
+
+/* Variants (left part of the actions row) */
+.lookbook-product__variants {
+  flex-shrink: 0;
 }
 
 .lookbook-product__variants .product-form__input {
@@ -302,38 +359,96 @@
   min-width: unset;
 }
 
-.lookbook-product__variants .form__label {
-  font-size: 1.2rem;
-  margin-bottom: 0.4rem;
+.lookbook-product__variants .select {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .lookbook-product__variants .select__select {
   font-size: 1.3rem;
-  min-height: 3.6rem;
+  font-weight: 500;
+  height: 4.4rem;
+  min-height: 4.4rem;
   padding-top: 0;
   padding-bottom: 0;
+  padding-left: 1.2rem;
+  padding-right: 3.2rem;
+  min-width: 6.5rem;
+  background: transparent;
+  border: 0.1rem solid rgba(0, 0, 0, 0.3);
+  border-radius: 0;
+  color: #111;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
 }
 
-/* ---------- Add to cart button ---------- */
-
-.lookbook-product .product-form {
-  margin-top: 0.4rem;
+.lookbook-product__variants .select__select:focus {
+  outline: none;
+  border-color: #111;
 }
+
+.lookbook-product__variants .svg-wrapper {
+  position: absolute;
+  right: 0.8rem;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.lookbook-product__variants .svg-wrapper svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Product form (right part — fills remaining width) */
+.lookbook-product__actions .product-form {
+  flex: 1;
+  min-width: 0;
+  margin-top: 0;
+}
+
+.lookbook-product__actions .product-form__error-message-wrapper {
+  display: none;
+}
+
+/* ---------- Add to bag button ---------- */
 
 .lookbook-product .product-form__submit {
-  min-height: 4rem;
-  font-size: 1.3rem;
-  padding-top: 0.8rem;
-  padding-bottom: 0.8rem;
+  width: 100%;
+  height: 4.4rem;
+  min-height: 4.4rem;
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  padding: 0 1.6rem;
+  background: transparent;
+  color: #111;
+  border: 0.1rem solid rgba(0, 0, 0, 0.3);
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.lookbook-product .product-form__error-message-wrapper {
-  margin-bottom: 0.8rem;
-  font-size: 1.2rem;
+.lookbook-product .product-form__submit:not([disabled]):hover {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.lookbook-product .product-form__submit[disabled] {
+  background: rgba(0, 0, 0, 0.04);
+  color: rgba(0, 0, 0, 0.35);
+  border-color: rgba(0, 0, 0, 0.12);
+  cursor: not-allowed;
 }
 
 /* ============================================================
-   RESPONSIVE TWEAKS (min-width: 320px baseline already covered)
+   RESPONSIVE — MOBILE
    ============================================================ */
 
 @media screen and (max-width: 749px) {
@@ -341,7 +456,7 @@
     width: 100%;
     max-height: 100%;
     height: 100%;
-    border-radius: 0;
+    box-shadow: none;
   }
 
   .lookbook-modal__layout {
@@ -349,19 +464,16 @@
   }
 
   .lookbook-modal__close {
-    top: 1.2rem;
-    right: 1.2rem;
+    top: 0.8rem;
+    right: 0.8rem;
   }
-}
 
-@media screen and (min-width: 320px) and (max-width: 479px) {
+  .lookbook-modal__products {
+    padding: 3.6rem 2rem 2rem;
+  }
+
   .lookbook-product {
-    grid-template-columns: 7rem 1fr;
-    gap: 1.2rem;
-  }
-
-  .lookbook-product__image-placeholder {
-    width: 7rem;
-    height: 7rem;
+    grid-template-columns: 9rem 1fr;
+    gap: 1.4rem;
   }
 }
