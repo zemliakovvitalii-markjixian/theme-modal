@@ -348,18 +348,25 @@
 /* Variants (left part of the actions row) */
 .lookbook-product__variants {
   flex-shrink: 0;
+  width: 8.5rem;
+}
+
+.lookbook-product__variants .product-form__input {
+  width: 100%;
 }
 
 /* Single-value option shown as plain text (e.g. "One Size") */
 .lookbook-product__single-value {
   display: flex;
   align-items: center;
+  width: 8.5rem;
   height: 4.4rem;
-  padding: 0 1rem;
   font-size: 1.3rem;
   font-weight: 500;
   color: #111;
-  white-space: nowrap;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.2;
   flex-shrink: 0;
 }
 
@@ -382,11 +389,11 @@
   font-weight: 500;
   height: 4.4rem;
   min-height: 4.4rem;
+  width: 100%;
   padding-top: 0;
   padding-bottom: 0;
   padding-left: 1.2rem;
-  padding-right: 3.2rem;
-  min-width: 6.5rem;
+  padding-right: 3rem;
   background: transparent;
   border: 0.1rem solid rgba(0, 0, 0, 0.3);
   border-radius: 0;
