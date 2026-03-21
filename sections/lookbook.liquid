@@ -188,37 +188,43 @@
                       {%- unless product.has_only_default_variant -%}
                         <div class="lookbook-product__variants">
                           {%- for option in product.options_with_values -%}
-                            <div class="product-form__input product-form__input--dropdown">
-                              <label
-                                class="form__label visually-hidden"
-                                for="LookbookOption-{{ section.id }}-{{ block.id }}-{{ forloop.index0 }}"
-                              >
-                                {{ option.name }}
-                              </label>
-                              <div class="select">
-                                <select
-                                  id="LookbookOption-{{ section.id }}-{{ block.id }}-{{ forloop.index0 }}"
-                                  class="select__select lookbook-variant-select"
-                                  name="options[{{ option.name | escape }}]"
-                                  data-option-position="{{ forloop.index0 }}"
-                                  aria-label="{{ option.name | escape }}"
+                            {%- if option.values.size == 1 -%}
+                              <span class="lookbook-product__single-value" aria-label="{{ option.name | escape }}">
+                                {{- option.values.first -}}
+                              </span>
+                            {%- else -%}
+                              <div class="product-form__input product-form__input--dropdown">
+                                <label
+                                  class="form__label visually-hidden"
+                                  for="LookbookOption-{{ section.id }}-{{ block.id }}-{{ forloop.index0 }}"
                                 >
-                                  {%- for value in option.values -%}
-                                    <option
-                                      value="{{ value | escape }}"
-                                      {%- if value.selected %} selected="selected"{% endif %}
-                                      {%- unless value.available %} disabled{% endunless %}
-                                    >
-                                      {{- value -}}
-                                      {%- unless value.available %} - {{ 'products.product.sold_out' | t }}{%- endunless %}
-                                    </option>
-                                  {%- endfor -%}
-                                </select>
-                                <span class="svg-wrapper">
-                                  {{- 'icon-caret.svg' | inline_asset_content -}}
-                                </span>
+                                  {{ option.name }}
+                                </label>
+                                <div class="select">
+                                  <select
+                                    id="LookbookOption-{{ section.id }}-{{ block.id }}-{{ forloop.index0 }}"
+                                    class="select__select lookbook-variant-select"
+                                    name="options[{{ option.name | escape }}]"
+                                    data-option-position="{{ forloop.index0 }}"
+                                    aria-label="{{ option.name | escape }}"
+                                  >
+                                    {%- for value in option.values -%}
+                                      <option
+                                        value="{{ value | escape }}"
+                                        {%- if value.selected %} selected="selected"{% endif %}
+                                        {%- unless value.available %} disabled{% endunless %}
+                                      >
+                                        {{- value -}}
+                                        {%- unless value.available %} - {{ 'products.product.sold_out' | t }}{%- endunless %}
+                                      </option>
+                                    {%- endfor -%}
+                                  </select>
+                                  <span class="svg-wrapper">
+                                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                                  </span>
+                                </div>
                               </div>
-                            </div>
+                            {%- endif -%}
                           {%- endfor -%}
                         </div>
                       {%- endunless -%}
