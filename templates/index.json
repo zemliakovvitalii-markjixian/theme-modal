@@ -57,23 +57,23 @@
             "product": "the-compare-at-price-snowboard"
           }
         },
-        "product_FikAmt": {
-          "type": "product",
-          "settings": {
-            "product": "the-multi-location-snowboard"
-          }
-        },
         "product_xcaXkH": {
           "type": "product",
           "settings": {
             "product": "the-videographer-snowboard"
           }
+        },
+        "product_FikAmt": {
+          "type": "product",
+          "settings": {
+            "product": "the-multi-location-snowboard"
+          }
         }
       },
       "block_order": [
         "product_JCLNUT",
-        "product_FikAmt",
-        "product_xcaXkH"
+        "product_xcaXkH",
+        "product_FikAmt"
       ],
       "name": "Lookbook",
       "settings": {
