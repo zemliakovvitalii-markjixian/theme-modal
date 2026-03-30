@@ -1,8 +1,17 @@
 <h1>Cart page</h1>
-{% for item in cart.items %}
-    <div>
-        <p>Item is {{ item.title }}</p>
-        <p>Price is {{ item.price |  money_with_currency }}</p>
-        <img src="{{item.image |  image_url: width: 400 }}" alt="">
-    </div>
-{% endfor %}
+{% if !cart.empty? %}
+    {% form 'cart', cart %}
+        <div class="haha">
+            {% comment %}
+            here we have all cart-items displayed
+            {% endcomment %}
+            {% render 'cart-item', cart: cart %}
+        </div>
+        <p>Items in cart {{ cart.item_count }}</p>
+        <p>Total {{cart.total_price | money}}</p>
+        <button type="submit" name="update"> Update</button>
+        <button type="submit" name="checkout">Checkout</button>
+    {% endform %}
+{%else%}
+    {% render 'no-content' %}
+{% endif %}

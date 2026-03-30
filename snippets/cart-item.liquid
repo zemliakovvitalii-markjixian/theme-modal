@@ -1,0 +1,11 @@
+<div class="cart-items">
+    {% for item in cart.items %}
+        <a href="{{item.url}}">
+            <img src="{{item.image |  image_url: width: 200 }}" alt="">
+        </a>
+        <p>Item is {{ item.title }}</p>
+        <p>Price is {{ item.price | money_with_currency }}</p>
+        <input name="updates[]" value="{{ item.quantity }}" min="0">
+        <a href="{{ item.url_to_remove }}">Remove</a>
+    {% endfor %}
+</div>
