@@ -3,23 +3,7 @@
         {{ content_for_header  }}
     </head>
     <body>
-        <script>
-          console.log({
-            shop: {{ shop | json }},
-            cart: {{ cart | json }},
-            customer: {{ customer | json }},
-            template: {{ template | json }},
-            settings: {{ settings | json }},
-            linklists: {{ linklists | json }},
-            localization: {{ localization | json }},
-            request: {{ request | json }},
-            allCountires: {{ all_country_option_tags |  json  }},
-            allProducts: {{ all_products | json }},
-            theme: {{ theme | json }}
-          });
-        </script>
         {% render 'header' %}
         {{ content_for_layout  }}
-        
     </body>
 </html>

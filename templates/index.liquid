@@ -5,8 +5,10 @@
     <pre>{{ product | json }}</pre>
 </div> {% endcomment %}
 <div class="prod">
-    <img src="{{product.featured_image | image_url}}" alt="">
-    {{- product.title | link_to: product.url }}
-    {{- product.price -}}
+    <a href="{{product.url}}">
+        <img src="{{product.featured_image | image_url: width: 400}}" alt="">
+        <span class="title">{{- product.title | link_to: product.url }}</span>
+        <span class="price">{{- product.price | money_with_currency -}}</span>  
+    </a>
 </div>
 {% endfor %}

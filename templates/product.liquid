@@ -1,0 +1,19 @@
+<h2>Product page</h2>
+<h3>{{ product.title }}</h3>
+<h4>Price is {{ product.price |  money  }}</h4>
+<div>
+    {{ product.description }}
+</div>
+
+{% form 'product', product  %}
+    <select name="id">
+        {% for variant in product.variants %}
+            <option value="{{variant.id}}">
+                {{variant.title}}
+            </option>
+        {% endfor %}
+    </select>
+    <button type="submit">Add to Cart</button>
+{% endform %}
+
+{{ product | json }}
