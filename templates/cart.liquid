@@ -1,17 +1,16 @@
 <h1>Cart page</h1>
-{% if !cart.empty? %}
-    {% form 'cart', cart %}
-        <div class="haha">
-            {% comment %}
-            here we have all cart-items displayed
-            {% endcomment %}
-            {% render 'cart-item', cart: cart %}
-        </div>
-        <p>Items in cart {{ cart.item_count }}</p>
-        <p>Total {{cart.total_price | money}}</p>
-        <button type="submit" name="update"> Update</button>
-        <button type="submit" name="checkout">Checkout</button>
-    {% endform %}
-{%else%}
-    {% render 'no-content' %}
+{% if cart.empty? %}
+{% render 'no-content' %}
+{%else if%}
+{% form 'cart', cart %}
+<div class="haha">
+    {% render 'cart-item', cart: cart %}
+</div>
+<p>Items in cart {{ cart.item_count }}</p>
+<p>Total {{cart.total_price | money}}</p>
+<button type="submit" name="update"> Update</button>
+<button type="submit" name="checkout">Checkout</button>
+{% endform %}
 {% endif %}
+
+<pre>{{ cart.empty? }}</pre>
