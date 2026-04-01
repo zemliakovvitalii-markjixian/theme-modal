@@ -8,7 +8,7 @@
     {% for collection in collections %}
     {{- collection.title | link_to: collection.url }}
     {% endfor %}
-    {% if article %}
+    {% if blogs.potion-notions.articles.size > 0 %}
     {% for article in blogs.potion-notions.articles %}
     {{- article.title | link_to: article.url }}
     {% endfor %}
