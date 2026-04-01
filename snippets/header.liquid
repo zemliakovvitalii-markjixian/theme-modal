@@ -5,14 +5,19 @@
         <li>{{ link.title | link_to: link.url }}</li>
         {%- endfor %}
     </ul>
-    {% for collection in collections %}
-    {{- collection.title | link_to: collection.url }}
-    {% endfor %}
-    {% if blogs.potion-notions.articles.size > 0 %}
-    {% for article in blogs.potion-notions.articles %}
-    {{- article.title | link_to: article.url }}
-    {% endfor %}
+        {% for collection in collections %}
+        {{- collection.title | link_to: collection.url }}
+        {% endfor %}
+
+        <hr>
+    {% if blogs.news.articles.size > 0 %}
+        {% for article in blogs.news.articles %}
+            {{- article.title | link_to: article.url }}
+        {% endfor %}
+         {% for article in blogs.articles %}
+            {{ article.handle }} — {{ article.title }} — {{ article.published_at }}
+        {% endfor %} 
     {% else %}
-    <p>no articles</p>
+        <p>no articles</p>
     {% endif %}
 </header>
