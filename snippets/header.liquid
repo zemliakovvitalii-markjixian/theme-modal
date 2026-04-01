@@ -2,10 +2,17 @@
     <h2>{{ shop.name }}</h2>
     <ul>
         {% for link in linklists.main-menu.links -%}
-            <li>{{ link.title | link_to: link.url }}</li>
+        <li>{{ link.title | link_to: link.url }}</li>
         {%- endfor %}
     </ul>
     {% for collection in collections %}
-        {{- collection.title | link_to: collection.url }}
+    {{- collection.title | link_to: collection.url }}
     {% endfor %}
+    {% if article %}
+    {% for article in blogs.potion-notions.articles %}
+    {{- article.title | link_to: article.url }}
+    {% endfor %}
+    {% else %}
+    <p>no articles</p>
+    {% endif %}
 </header>
