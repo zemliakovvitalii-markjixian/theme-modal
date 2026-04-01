@@ -3,3 +3,38 @@
 <p>{{article.content}}</p>
 <p>{{article.excerpt}}</p>
 <p>Published at {{article.published_at | date: '%B %d, %Y'}}</p>
+
+{% if article.comments_enabled? %}
+<h2>leave a comment</h2>
+        {% for comment in article.comments %}
+            <h2>Check some comments already left</h2>
+            <div>
+                <h3>By - {{comment.author}}</h3>
+                <h4>{{comment.content}}</h4>
+                <h5>{{comment.email}}</h5>
+            </div>
+        {% endfor %}
+
+    {% form 'new_comment', article %}
+        {{ form.errors | default_errors }}
+
+        <div className="name">
+            <label for="name">Name</label>
+            <input type="text" name="comment[author]" value="{{ form.author }}" />
+        </div>
+
+        <div className="email">
+            <label for="email">Email</label>
+            <input type="email" name="comment[email]" value="{{ form.email }}" />
+        </div>
+
+        <div className="comment">
+            <label for="comment">Comment</label>
+            <textarea name="comment[body]">{{ form.body }}</textarea>
+        </div>
+
+        <div className="submit">
+            <input type="submit" value="Post" />
+        </div>
+    {% endform %}
+{% endif %}
