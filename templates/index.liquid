@@ -5,10 +5,6 @@
     <pre>{{ product | json }}</pre>
 </div> {% endcomment %}
 <div class="prod">
-    <a href="{{product.url}}">
-        <img src="{{product.featured_image | image_url: width: 400}}" alt="">
-        <span class="title">{{- product.title | link_to: product.url }}</span>
-        <span class="price">{{- product.price | money_with_currency -}}</span>  
-    </a>
+    {% render 'product-card', product: product %}
 </div>
 {% endfor %}

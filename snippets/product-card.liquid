@@ -1,0 +1,7 @@
+<div class="product-card__wrapper">
+    <a class="product-card" href="{{product.url}}">
+        <img src="{{product.featured_image | image_url: width: 400}}" alt="">
+    </a>
+    {{- product.title | link_to: product.url }}
+    <span class="price">{{- product.price | money_with_currency -}}</span>
+</div>
