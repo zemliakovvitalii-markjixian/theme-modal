@@ -1,10 +1,7 @@
 <h2>{{ collections['frontpage'].title }}</h2>
 
-{% for product in collections['frontpage'].products %}
-{% comment %} <div class="prod">
-    <pre>{{ product | json }}</pre>
-</div> {% endcomment %}
-<div class="prod">
-    {% render 'product-card', product: product %}
+<div class="collection-wrapper">
+    {% for product in collections['frontpage'].products %}
+        {% render 'product-card', product: product %}
+    {% endfor %}
 </div>
-{% endfor %}

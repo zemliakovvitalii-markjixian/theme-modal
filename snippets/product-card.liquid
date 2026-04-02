@@ -1,3 +1,57 @@
+{% style %}
+.collection-wrapper {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 1.5rem; /* spacing between cards */
+padding: 1rem;
+}
+
+.product-card__wrapper {
+display: flex;
+flex-direction: column;
+justify-items: center;
+justify-content: center;
+align-items: center;
+background: #fff;
+border: 1px solid #ddd;
+border-radius: 8px;
+padding: 1rem;
+/* text-align: center; */
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card__wrapper:hover {
+transform: translateY(-4px);
+box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+max-width: 100%;
+height: auto;
+border-radius: 6px;
+}
+
+.product-card {
+    flex-grow: 1;
+}
+
+.product-card__wrapper a {
+
+display: block;
+margin-top: 0.5rem;
+font-weight: 600;
+color: #333;
+text-decoration: none;
+}
+
+.product-card__wrapper .price {
+display: block;
+margin-top: 0.25rem;
+font-size: 0.95rem;
+color: #555;
+}
+
+{% endstyle %}
 <div class="product-card__wrapper">
     <a class="product-card" href="{{product.url}}">
         <img src="{{product.featured_image | image_url: width: 400}}" alt="">

@@ -1,0 +1,7 @@
+<div class="product-card__wrapper">
+    <a class="product-card" href="{{collection.url}}">
+        <img src="{{collection.featured_image | image_url: width: 400}}" alt="">
+    </a>
+    {{- collection.title | link_to: collection.url }}
+    <span class="count">Qty of products {{ collection.products_count }}</span>
+</div>
