@@ -1,8 +1,11 @@
 <div class="collection-wrapper">
     {% if search.performed %}
-        {% assign products = search.results | where: 'object_type', 'product' %}
-        {% for item in products %}
-            {% render 'product-card', product: item %}
+        {% for item in search.results %}
+            {% if item.object_type == 'product' %}
+                {% render 'product-card', product: item %}
+            {% else %}
+                <a href="{{ item.url }}">{{ item.title }}</a>
+            {% endif %}
         {% endfor %}
     {% else %}
         <h2>Try searching for something</h2>
@@ -10,6 +13,6 @@
 </div>
 <div>
     {% for item in search.results %}
-    {{ item.content | highlight: search.terms }}
+        {{ item.content | highlight: search.terms }}
     {% endfor %}
 </div>
