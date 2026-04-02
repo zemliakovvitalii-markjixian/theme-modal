@@ -1,0 +1,31 @@
+<form action="/search">
+    <input id="search" type="search" name="q"/>
+    <button type="submit">Search</button>
+</form>
+
+{% javascript %}
+    const search = document.getElementById('search')
+    const SEARCH_VALUE = 'searchValue'
+    const cachedValue = localStorage.getItem(SEARCH_VALUE)
+    if(cachedValue) {
+        search.value = cachedValue.trim()
+    }
+
+    const saveValue = debounce((value) => {
+        localStorage.setItem(SEARCH_VALUE, value)
+    }, 200)
+
+    search.addEventListener('input', (e) => {
+        saveValue(e.target.value)
+    })
+
+    function debounce(fn, wait) {
+        let timeout;
+        return (...args) => {
+            clearTimeout(timeout)
+            setTimeout(() => {
+                fn(...args)
+            }, wait);
+        }
+    }
+{% endjavascript %}

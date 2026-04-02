@@ -10,8 +10,8 @@
     <hr>
 
     {% if blogs.news.articles.size > 0 %}
-        {% render 'blogs-list', blogs: blogs
-    {% else %}
-        <p>no articles</p>
+        {% render 'blogs-list', blogs: blogs %}
     {% endif %}
+
+    {% render 'search' %}
 </header>
