@@ -1,13 +1,8 @@
-<pre>{{search.results | json}}</pre>
-
 <div class="collection-wrapper">
     {% if search.performed %}
-        {% for item in search.results %}
-            {% if item.title != 'Your Privacy Choices' %}
-                {% render 'product-card', product: item %}
-            {% else %}
-                <pre>{{item | json}}</pre>
-            {% endif %}
+        {% assign products = search.results | where: 'object_type', 'product' %}
+        {% for item in products %}
+            {% render 'product-card', product: item %}
         {% endfor %}
     {% else %}
         <h2>Try searching for something</h2>
