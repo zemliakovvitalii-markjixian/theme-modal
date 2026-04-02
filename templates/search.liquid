@@ -1,18 +1,15 @@
-<div class="collection-wrapper">
-    {% if search.performed %}
-        {% for item in search.results %}
-            {% if item.object_type == 'product' %}
-                {% render 'product-card', product: item %}
-            {% else %}
-                <a href="{{ item.url }}">{{ item.title }}</a>
-            {% endif %}
-        {% endfor %}
-    {% else %}
-        <h2>Try searching for something</h2>
-    {% endif %}
-</div>
-<div>
-    {% for item in search.results %}
-        {{ item.content | highlight: search.terms }}
-    {% endfor %}
-</div>
+{% paginate search.results by 4 %}
+    <div class="collection-wrapper">
+        {% if search.performed %}
+            {% for item in search.results %}
+                {% if item.object_type == 'product' %}
+                    {% render 'product-card', product: item %}
+                {% else %}
+                    <a href="{{ item.url }}">{{ item.title }}</a>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <h2>Try searching for something</h2>
+        {% endif %}
+    </div>
+{% endpaginate %}
