@@ -1,22 +1,16 @@
 <header>
     <h2>{{ shop.name }}</h2>
-    <ul>
-        {% for link in linklists.main-menu.links -%}
-        <li>{{ link.title | link_to: link.url }}</li>
-        {%- endfor %}
-    </ul>
-        {% for collection in collections %}
-        {{- collection.title | link_to: collection.url }}
-        {% endfor %}
 
-        <hr>
+    {% render 'link-list', links: linklists.main-menu.links %}
+
+    {% for collection in collections %}
+        {{- collection.title | link_to: collection.url }}
+    {% endfor %}
+
+    <hr>
+
     {% if blogs.news.articles.size > 0 %}
-        {% for article in blogs.news.articles %}
-            {{- article.title | link_to: article.url }}
-        {% endfor %}
-         {% for article in blogs.articles %}
-            {{ article.handle }} — {{ article.title }} — {{ article.published_at }}
-        {% endfor %} 
+        {% render 'blogs-list', blogs: blogs
     {% else %}
         <p>no articles</p>
     {% endif %}

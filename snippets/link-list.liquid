@@ -1,0 +1,5 @@
+    <ul>
+        {% for link in links -%}
+            <li>{{ link.title | link_to: link.url }}</li>
+        {%- endfor %}
+    </ul>

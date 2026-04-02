@@ -1,0 +1,7 @@
+{% for article in blogs.news.articles %}
+    {{- article.title | link_to: article.url }}
+{% endfor %}
+
+{% for article in blogs.articles %}
+    {{ article.handle }} — {{ article.title }} — {{ article.published_at }}
+{% endfor %}
