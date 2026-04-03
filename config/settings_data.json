@@ -9,9 +9,9 @@
  */
 {
   "current": {
-    "bg": "#ecd7d7",
+    "bg": "#d4a7a7",
     "text_color": "#1e1010",
-    "show_search": false,
+    "show_search": true,
     "content_for_index": []
   }
 }
