@@ -1,0 +1,39 @@
+<header>
+    <h2>{{ shop.name }}</h2>
+
+    {% render 'link-list', links: linklists.main-menu.links %}
+
+    {% for collection in collections %}
+        {{- collection.title | link_to: collection.url }}
+    {% endfor %}
+
+    <hr>
+
+    {% if blogs.news.articles.size > 0 %}
+        {% render 'blogs-list', blogs: blogs %}
+    {% endif %}
+
+    {% if settings.show_search %}
+        {% render 'search' %}
+    {% else %}
+    Sorry, please eneble search
+    {% endif %}
+</header>
+
+{% schema %}
+{
+"name": " Header ",
+"settings": [
+        {
+            "type": "checkbox",
+            "id": "show_search",
+            "label": "Show search form"
+        },
+        {
+            "type": "color",
+            "id": "bg",
+            "label": "Background"
+        }
+    ]
+}. 
+{% endschema %}
