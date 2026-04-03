@@ -13,5 +13,9 @@
         {% render 'blogs-list', blogs: blogs %}
     {% endif %}
 
-    {% render 'search' %}
+    {% if settings.show_search %}
+        {% render 'search' %}
+    {% else %}
+        Sorry, please eneble search    
+    {% endif %}
 </header>

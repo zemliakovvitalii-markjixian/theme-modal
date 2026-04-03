@@ -21,7 +21,7 @@
         "settings": [
             {
                 "type": "checkbox",
-                "id": "show_search ",
+                "id": "show_search",
                 "label": "Show search form",
                 "default": true
             }
