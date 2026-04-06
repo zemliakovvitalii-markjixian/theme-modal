@@ -13,7 +13,7 @@
         {% render 'blogs-list', blogs: blogs %}
     {% endif %}
 
-    {% if settings.show_search %}
+    {% if section.settings.show_search %}
         {% render 'search' %}
     {% else %}
     Sorry, please eneble search
