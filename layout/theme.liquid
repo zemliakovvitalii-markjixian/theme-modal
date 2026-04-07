@@ -13,7 +13,8 @@
     {{ 'application.js' | asset_url | script_tag }}
   </head>
   <body>
-    <main role="main" class="bg-red-900">
+    {% section 'header' %}
+    <main role="main">
       {{ content_for_layout }}
     </main>
   </body>
