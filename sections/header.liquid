@@ -1,4 +1,4 @@
-<div x-data="{ mobileMenuOpen: true }" class="relative bg-white">
+<div x-data="{ mobileMenuOpen: false }" class="relative bg-white">
   <div class="mx-auto px-4 sm:px-6">
     <div class="flex justify-between items-center py-6 md:justify-start md:space-x-10">
       <!-- STORE NAME / STORE LOGO -->
@@ -13,18 +13,19 @@
       </div>
 
       <!-- NAVIGATION MENU -->
-      <nav class="hidden md:flex space-x-10" x-data="{ open: false }">
+      <nav class="hidden md:flex space-x-10">
 
         {% for link in linklists.main-menu.links %}
           {% if link.links != blank %}
-            <div class="relative">
-              <button type="button" class="inline-flex items-center text-base text-gray-500 hover:text-gray-900"
-                x-on:click="open = ! open">
+            <div class="relative" x-data="{ open: false }">
+              <button type="button"
+                class="inline-flex items-center text-base text-gray-500 hover:text-gray-900"
+                x-on:click="open = !open">
                 {{link.title}}
                 {% render 'icon-dropdown' %}
               </button>
 
-              <div @click.away="open = false"
+              <div x-show="open" @click.away="open = false"
                 class="absolute z-10 -ml-5 mt-5 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
                 <div class="shadow-lg border ring-black ring-opacity-5 overflow-hidden rounded-lg">
                   <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
@@ -87,17 +88,16 @@
           <nav class="grid gap-y-7">
 
           {% for link in linklists.main-menu.links %}
-            {% assign link_handle = link.handle | replace: '-', '_' %}
-            {% if link.links != blank %}
-              <div class="relative">
+              {% if link.links != blank %}
+              <div class="relative" x-data="{ open: false }">
                 <button
-                  x-on:click="{{link_handle}} = ! {{link_handle}}"
+                  x-on:click="open = !open"
                   type="button"
                   class="text-base text-gray-500 hover:text-gray-900 flex items-center justify-between w-full">
                   <div>{{link.title}}</div>
                   {% render 'icon-dropdown' %}
                 </button>
-                <div x-show="{ {{link_handle}}: false }" class="grid gap-y-7 py-3">
+                <div x-show="open" class="grid gap-y-7 py-3">
                   {% for link in link.links %}
                     <a href="{{link.url}}"
                       class="-m-3 p-3 mt-2 flex items-center rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-50">
