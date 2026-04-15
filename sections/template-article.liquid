@@ -1,34 +1,28 @@
-<article class="py-8">
+<article class="py-8 grid place-items-center gap-y-2 px-2 md:px-1 lg:px-0">
     {% for block in section.blocks %}
         {% case block.type %}
             {% when 'article_title' %}
-                <div class="flex items-center justify-center">
-                    <div class="max-w-7xl text-center">
+                <div class="grid place-items-center">
                         <a href="{{blog.url}}" class="text-base uppercase text-gray-500 hover:text-gray-900 font-bold">{{blog.title}}</a>
                         <h1 class="text-4xl md:text-6xl font-medium">{{article.title}} </h1>
-                    </div>
                 </div>
 
             {% when 'article_author' %}
                 {% if section.settings.enable_author %}
-                    <div class="flex items-center justify-center">
-                        <div class="max-w-7xl">
+                    <div class="">
                             <small>{{article.author}}</small>
-                        </div>
                     </div>
                 {% endif %}
             {% when 'article_published_date' %}
                 {% if section.settings.enable_published_date %}
-                    <div class="flex items-center justify-center">
-                        <div class="max-w-7xl">
+                    <div class="">
                             <time datetime="{{article.published_at |  date: '%B %d, %Y'}}">
                                 {{article.published_at | date: format: 'on_date'}}
                             </time>
-                        </div>
                     </div>
                 {% endif %}
             {% when 'featured_img' %}
-                <div class="max-w-7xl bg-blue-100 rounded-lg mx-2 md:mx-auto overflow-hidden">
+                <div class=" max-w-7xl w-full bg-blue-100 rounded-lg md:mx-auto overflow-hidden">
                     {% if article.image != blank %}
                         <img class="w-full h-80 md:h-96 object-cover object-center" src="{{article.image |  image_url: width: 1450 }}" alt="{{article.image.alt}}" loading="lazy"/>
                     {% else %}
@@ -38,10 +32,8 @@
                 </div>
 
             {% when 'article_content' %}
-                <div class="flex items-center justify-center">
-                    <div class="max-w-5xl">
+                <div class="max-w-5xl">
                         {{article.content}}
-                    </div>
                 </div>
             {% else %}
         {% endcase %}
