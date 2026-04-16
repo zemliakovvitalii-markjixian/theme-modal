@@ -1,0 +1,46 @@
+      {% form 'new_comment', article %}
+            {{ form.errors | default_errors }}
+            <div class="flex-1 mx-auto items-center justify-center max-w-4xl px-4">
+                <div class=" md:flex mb-3">
+                    <div class="px-3 md:w-1/2">
+                        <label for="comment_author" class="text-gray-700 font-medium uppercase text-xs mb-2">Name</label>
+                        <input
+                            type="text"
+                            name="comment[author]"
+                            id="comment_author"
+                            class="w-full text-gray-700 border py-r px-4 focus:outline-none"
+                            placeholder="Jane Doe"
+                            required
+                        />
+                    </div>
+                    <div class="px-3 md:w-1/2">
+                     <label for="comment_email" class="text-gray-700 font-medium uppercase text-xs mb-2">Email</label>
+                        <input
+                            type="email"
+                            name="comment[email]"
+                            id="comment_email"
+                            class="w-full text-gray-700 border py-r px-4 focus:outline-none"
+                            placeholder="test@test.com"
+                            required
+                        />
+                    </div>
+                </div>
+                <div class="px-3">
+                    <label for="comment_body" class="text-gray-700 font-medium uppercase text-xs mb-2">Comment</label>
+                    <textarea
+                        name="comment[body]"
+                        id="comment_body"
+                        class="w-full text-gray-700 border focus:outline-none resize-none"
+                        required
+                    >
+                    </textarea>
+                </div>
+                <div class="px-3 md:w-full flex items-center justify-center">
+                    <input
+                        type="submit"
+                        value="Post comment"
+                        class="cursor-pointer w-full border text-base font-medium text-white bg-gray-900 hover:bg-gray-500"
+                    />
+                </div>
+            </div>
+        {% endform %}
