@@ -41,21 +41,23 @@
 </article>
 
 {% if blog.comments_enabled? %}
-    <div id="comments" class="my-8">
+    <div id="comments" class="mb-8 max-w-4xl w-full mx-auto">
         {% if article.comments_count > 0 %}
-            <div class="flex-1 items-center justify-center mx-auto max-w-4xl px-6">
+            <div class="grid gap-y-4 px-2">
                 <h1 class="text-lg mb-4 font-medium">See what people are saying</h1>
 
                 {% paginate article.comments by 5 %}
                     {% for comment in article.comments %}
-                        <div class="flex-1 border my-4 px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
-                            <span class="comment-author">{{comment.author}}</span>
-                            <span class="text-xs text-gray-400">{{comment.created_at |  date: format: 'default'}}</span>
-                            <p class="text-sm">{{comment.content}}</p>
+                        <div class=" border leading-relaxed p-2 grid gap-y-1">
+                            <span class="comment-author"><strong><i>Author</i> - </strong>{{comment.author}}</span>
+                            <span class="text-xs text-gray-400"> <strong><i>Date</i> - </strong>{{comment.created_at |  date: format: 'default'}}</span>
+                            <div class="text-sm flex gap-x-1"><strong><i>Content</i> - </strong>{{comment.content}}</div>
                         </div>
                     {% endfor %}
                     {% if paginate.pages > 1 %}
-                        {{paginate |  default_pagination}}
+                        <div class="pagination">
+                            {{paginate |  default_pagination}}
+                        </div>
                     {% endif %}
                 {% endpaginate %}
             </div>
@@ -63,7 +65,7 @@
             There are no comments in this article
         {% endif %}
     </div>
-    <div id="comment_form" class="mb-8">
+    <div id="comment_form" class="mb-8 max-w-4xl w-full mx-auto">
             {% render 'blog-form', article %}
     </div>
 {% endif %}
