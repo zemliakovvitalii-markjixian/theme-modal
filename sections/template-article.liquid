@@ -1,39 +1,41 @@
-<article class="py-8 grid place-items-center gap-y-2 px-2 md:px-1 lg:px-0">
+<article class="grid place-items-center gap-y-2 py-4">
     {% for block in section.blocks %}
         {% case block.type %}
             {% when 'article_title' %}
                 <div class="grid place-items-center">
-                        <a href="{{blog.url}}" class="text-base uppercase text-gray-500 hover:text-gray-900 font-bold">{{blog.title}}</a>
-                        <h1 class="text-4xl md:text-6xl font-medium">{{article.title}} </h1>
+                    <a href="{{blog.url}}" class="text-base uppercase text-gray-500 hover:text-gray-900 font-bold">{{blog.title}}</a>
+                    <h1 class="text-4xl md:text-6xl font-medium">{{article.title}}</h1>
                 </div>
 
             {% when 'article_author' %}
                 {% if section.settings.enable_author %}
-                    <div class="">
-                            <small>{{article.author}}</small>
+                    <div>
+                        <small>{{article.author}}</small>
                     </div>
                 {% endif %}
+
             {% when 'article_published_date' %}
                 {% if section.settings.enable_published_date %}
-                    <div class="">
-                            <time datetime="{{article.published_at |  date: '%B %d, %Y'}}">
-                                {{article.published_at | date: format: 'on_date'}}
-                            </time>
+                    <div>
+                        <time datetime="{{article.published_at | date: '%B %d, %Y'}}">
+                            {{article.published_at | date: format: 'on_date'}}
+                        </time>
                     </div>
                 {% endif %}
+
             {% when 'featured_img' %}
-                <div class=" max-w-7xl w-full bg-blue-100 rounded-lg md:mx-auto overflow-hidden">
+                <div class="max-w-7xl w-full bg-blue-100 rounded-lg md:mx-auto overflow-hidden">
                     {% if article.image != blank %}
-                        <img class="w-full h-80 md:h-96 object-cover object-center" src="{{article.image |  image_url: width: 1450 }}" alt="{{article.image.alt}}" loading="lazy"/>
+                        <img class="w-full h-80 md:h-96 object-cover object-center" src="{{article.image | image_url: width: 1450}}" alt="{{article.image.alt}}" loading="lazy"/>
                     {% else %}
-                        {%  assign placeholder_image = 'lifestyle-1' %}
-                        {{placeholder_image |  placeholder_svg_tag: 'w-full h-80 md:h-96 object-cover object-center p-5'}}
+                        {% assign placeholder_image = 'lifestyle-1' %}
+                        {{placeholder_image | placeholder_svg_tag: 'w-full h-80 md:h-96 object-cover object-center p-5'}}
                     {% endif %}
                 </div>
 
             {% when 'article_content' %}
                 <div class="max-w-5xl">
-                        {{article.content}}
+                    {{article.content}}
                 </div>
             {% else %}
         {% endcase %}
@@ -41,30 +43,28 @@
 </article>
 
 {% if blog.comments_enabled? %}
-    <div id="comments" class="my-8">
+    <div id="comments" class="grid gap-2 max-w-4xl mx-auto">
         {% if article.comments_count > 0 %}
-            <div class="flex-1 items-center justify-center mx-auto max-w-4xl px-6">
-                <h1 class="text-lg mb-4 font-medium">See what people are saying</h1>
+            <h1 class="text-lg font-medium">See what people are saying</h1>
 
-                {% paginate article.comments by 5 %}
-                    {% for comment in article.comments %}
-                        <div class="flex-1 border my-4 px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
-                            <span class="comment-author">{{comment.author}}</span>
-                            <span class="text-xs text-gray-400">{{comment.created_at |  date: format: 'default'}}</span>
-                            <p class="text-sm">{{comment.content}}</p>
-                        </div>
-                    {% endfor %}
-                    {% if paginate.pages > 1 %}
-                        {{paginate |  default_pagination}}
-                    {% endif %}
-                {% endpaginate %}
-            </div>
+            {% paginate article.comments by 5 %}
+                {% for comment in article.comments %}
+                    <div class="grid border p-2 leading-relaxed">
+                        <span class="comment-author">{{comment.author}}</span>
+                        <span class="text-xs text-gray-400">{{comment.created_at | date: format: 'default'}}</span>
+                        <p class="text-sm">{{comment.content}}</p>
+                    </div>
+                {% endfor %}
+                {% if paginate.pages > 1 %}
+                    {{paginate | default_pagination}}
+                {% endif %}
+            {% endpaginate %}
         {% else %}
             There are no comments in this article
         {% endif %}
     </div>
-    <div id="comment_form" class="mb-8">
-            {% render 'blog-form', article %}
+    <div id="comment_form" class="max-w-4xl mx-auto">
+        {% render 'blog-form', article %}
     </div>
 {% endif %}
 
