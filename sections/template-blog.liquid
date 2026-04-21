@@ -20,7 +20,7 @@
                                 {{ 'image' |  placeholder_svg_tag: 'w-full h-80 object-cover bg-gray-100' }}
                             {% endif %}
 
-                            <div class="content flex flex-col gap-2 px-3">
+                            <div class="content flex flex-col gap-3 p-3">
                                 <h1 class="text-xl font-medium">{{article.title }}</h1>
 
                                 {% if article.excerpt.size > 0 %}
@@ -40,6 +40,10 @@
             </div>
         </div>
 
+        <div class="max-w-6xl mx-auto">
+            {% render 'pagination', paginate: paginate %}
+        </div>
+
      {% endpaginate %}
  </div>
 
@@ -55,7 +59,7 @@
                 "min": 1,
                 "max": 6,
                 "label": "Blog posts per page",
-                "default": 3
+                "default": 1
             },
             {
                 "type": "checkbox",
