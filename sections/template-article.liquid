@@ -1,16 +1,47 @@
-<article class="py-8 grid place-items-center gap-y-2 px-2 md:px-1 lg:px-0">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ article.url | prepend: shop.url }}"
+  },
+  "headline": {{ article.title | json }},
+  "description": {{ article.excerpt_or_content | strip_html | truncate: 200 | json }},
+  "datePublished": "{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}",
+  "dateModified": "{{ article.updated_at | date: '%Y-%m-%dT%H:%M:%SZ' }}",
+  "author": {
+    "@type": "Person",
+    "name": {{ article.author | json }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ shop.name | json }}
+  }
+  {%- if article.image -%}
+  ,"image": {
+    "@type": "ImageObject",
+    "url": "{{ article.image | image_url: width: 1200 }}",
+    "width": 1200,
+    "height": {{ 1200 | times: article.image.height | divided_by: article.image.width }}
+  }
+  {%- endif -%}
+}
+</script>
+
+<article itemscope itemtype="https://schema.org/BlogPosting" class="py-8 grid place-items-center gap-y-2 px-2 md:px-1 lg:px-0">
     {% for block in section.blocks %}
         {% case block.type %}
             {% when 'article_title' %}
                 <div class="grid place-items-center">
                         <a href="{{blog.url}}" class="text-base uppercase text-gray-500 hover:text-gray-900 font-bold">{{blog.title}}</a>
-                        <h1 class="text-4xl md:text-6xl font-medium">{{article.title}} </h1>
+                        <h1 class="text-4xl md:text-6xl font-medium" itemprop="headline">{{article.title}} </h1>
                 </div>
 
             {% when 'article_author' %}
                 {% if section.settings.enable_author %}
-                    <div class="">
-                            <small>{{article.author}}</small>
+                    <div class="" itemscope itemtype="https://schema.org/Person">
+                            <small itemprop="name">{{article.author}}</small>
                     </div>
                 {% endif %}
             {% when 'article_published_date' %}
@@ -72,48 +103,48 @@
 
 
 {% schema %}
-{
-    "name": "Template Article",
-    "settings": [
-        {
-            "type": "checkbox",
-            "id": "enable_author",
-            "default": true,
-            "label": "Display author name"
-        },
-        {
-            "type": "checkbox",
-            "id": "enable_published_date",
-            "default": true,
-            "label": "Dasplay Published Date"
-        }
-    ],
-    "blocks": [
-        {
-            "type": "article_title",
-            "name": "Title",
-            "limit": 1
-        },
-        {
-            "type": "article_author",
-            "name": "Author",
-            "limit": 1
-        },
-        {
-            "type": "article_published_date",
-            "name": "Published Date",
-            "limit": 1
-        },
-        {
-            "type": "featured_img",
-            "name": "Thumbnail",
-            "limit": 1
-        },
-        {
-            "type": "article_content",
-            "name": "Content",
-            "limit": 1
-        }
-    ]
-}
+    {
+        "name": "Template Article",
+        "settings": [
+            {
+                "type": "checkbox",
+                "id": "enable_author",
+                "default": true,
+                "label": "Display author name"
+            },
+            {
+                "type": "checkbox",
+                "id": "enable_published_date",
+                "default": true,
+                "label": "Dasplay Published Date"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "article_title",
+                "name": "Title",
+                "limit": 1
+            },
+            {
+                "type": "article_author",
+                "name": "Author",
+                "limit": 1
+            },
+            {
+                "type": "article_published_date",
+                "name": "Published Date",
+                "limit": 1
+            },
+            {
+                "type": "featured_img",
+                "name": "Thumbnail",
+                "limit": 1
+            },
+            {
+                "type": "article_content",
+                "name": "Content",
+                "limit": 1
+            }
+        ]
+    }
 {% endschema %}
