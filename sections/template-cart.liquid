@@ -1,25 +1,24 @@
 {% if cart.item_count > 0 %}
         <div class="p-4 max-w-6x">
 
-            <div class="flex flex-col my-10 mx-auto">
+            <div class="flex flex-col my-2 mx-auto">
                 <div class="flex items-end justify-between my-5">
                     <h1 class="text-3xl">Your cart</h1>
                     <a href="" class="text-blue-600 hover:text-blue-800 font-medium underline">Continue shopping</a>
                 </div>
             </div>
 
-            <div class="flex flex-col my-10 mx-auto">
+            <div class="flex flex-col my-2 mx-auto">
                 <form action="{{routes.cart_url}}" method="post" novalidate>
-                    <table class="table-auto divide-y divide-gray-200 my-4 w-full">
-                        <thead>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Product</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Qty</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Total Price</th>
-                        </thead>
-                        <tbody>
+                    <div class="divide-y divide-gray-200 my-4 w-full">
+                        <div class="grid grid-cols-[1fr_1fr_1fr] pb-3">
+                            <div class="px-6 py-3 text-left text-sm font-medium text-gray-500">Product</div>
+                            <div class="px-6 py-3 text-left text-sm font-medium text-gray-500">Qty</div>
+                            <div class="px-6 py-3 text-left text-sm font-medium text-gray-500">Total Price</div>
+                        </div>
                         {% for item in cart.items %}
-                            <tr class="table-row">
-                                <td class="px-2 py-4 flex flex-col justify-center">
+                            <div class="grid grid-cols-[1fr_1fr_1fr] items-center py-2">
+                                <div class="px-2 flex items-center gap-4">
                                     <a href="{{item.url}}">
                                         {% if item.image %}
                                             <img src="{{item.image |  image_url: width: 250}}" alt="{{item.title | escape}}" class="w-20 h-20 object-cover" />
@@ -27,22 +26,21 @@
                                             {{'product-1' |  placeholder_svg_tag: 'w-20 h-20 object-cover border'}}
                                         {% endif %}
                                     </a>
-                                </td>
-                                <td class="px-2 py-4 flex flex-col justify-center">
-                                    <a href="{{item.url}}" class="my-1">{{ item.product.title |  truncatewords: 5 }}</a>
+                                    <div class="flex flex-col">
+                                        <a href="{{item.url}}" class="my-1">{{ item.product.title |  truncatewords: 5 }}</a>
                                         <span class="text-sm text-gray-500 my-1">{{item.variant.title}}</span>
-                                    <a href="{{routes.cart_change_url}}?line={{forloop.index}}&quantity=0" class="text-sm font-medium text-red-500 my-1">Remove</a>
-                                </td>
-                                <td class="py-4 px-2">
+                                        <a href="{{routes.cart_change_url}}?line={{forloop.index}}&quantity=0" class="text-sm font-medium text-red-500 my-1">Remove</a>
+                                    </div>
+                                </div>
+                                <div class="py-4 px-6">
                                     <input type="number" name="updates[]" min="1" id="updates_{{forloop.index}}" value="{{item.quantity}}" class="w-20 border p-2">
-                                </td>
-                                <td class="py-4 px-2">
+                                </div>
+                                <div class="py-4 px-6">
                                     {{item.line_price |  money_with_currency}}
-                                </td>
-                            </tr>
+                                </div>
+                            </div>
                         {% endfor %}
-                        </tbody>
-                    </table>
+                    </div>
                     <div class="flex flex-col md:flex-row items-start justify-between">
                         <div class="w-full">
                             <div class="flex flex-col items-start">
