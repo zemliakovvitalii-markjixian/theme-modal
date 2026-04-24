@@ -1,4 +1,4 @@
-{% if cart.item_count > 0 or request.design_mode %}
+{% if cart.item_count > 0 or section.settings.show_in_design_mode %}
         <div class="p-4 max-w-6x">
 
             <div class="flex flex-col my-10 mx-auto">
@@ -41,7 +41,7 @@
                                 </td>
                             </tr>
                         {% else %}
-                            {% if request.design_mode %}
+                            {% if section.settings.show_in_design_mode %}
                                 <tr class="table-row">
                                     <td class="px-2 py-4">
                                         {{'product-1' |  placeholder_svg_tag: 'w-20 h-20 object-cover border'}}
@@ -106,6 +106,14 @@
 {% schema %}
 {
     "name": "Template Cart",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "show_in_design_mode",
+            "label": "Show in design mode",
+            "default": false
+        }
+    ],
     "blocks": [
         {
             "type": "subtotal",
