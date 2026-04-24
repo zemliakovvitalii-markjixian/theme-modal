@@ -12,10 +12,6 @@
     "template": {
       "type": "template-cart",
       "blocks": {
-        "subtotal_nMdaGj": {
-          "type": "subtotal",
-          "settings": {}
-        },
         "update_button_rFNBwV": {
           "type": "update_button",
           "settings": {}
@@ -23,14 +19,20 @@
         "checkout_button_MhD93F": {
           "type": "checkout_button",
           "settings": {}
+        },
+        "subtotal_nMdaGj": {
+          "type": "subtotal",
+          "settings": {}
         }
       },
       "block_order": [
-        "subtotal_nMdaGj",
         "update_button_rFNBwV",
-        "checkout_button_MhD93F"
+        "checkout_button_MhD93F",
+        "subtotal_nMdaGj"
       ],
-      "settings": {}
+      "settings": {
+        "show_in_design_mode": true
+      }
     }
   },
   "order": [
