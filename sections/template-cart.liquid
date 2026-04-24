@@ -1,4 +1,4 @@
-{% if cart.item_count > 0 %}
+{% if cart.item_count > 0 or (request.design_mode and section.settings.show_in_design_mode) %}
         <div class="p-4 max-w-6x">
 
             <div class="flex flex-col my-10 mx-auto">
@@ -40,6 +40,23 @@
                                     {{item.line_price |  money_with_currency}}
                                 </td>
                             </tr>
+                        {% else %}
+                            {% if request.design_mode and section.settings.show_in_design_mode %}
+                                <tr class="table-row">
+                                    <td class="px-2 py-4">
+                                        {{'product-1' |  placeholder_svg_tag: 'w-20 h-20 object-cover border'}}
+                                    </td>
+                                    <td class="px-2 py-4">
+                                        <span class="my-1">Example Product</span>
+                                        <span class="block text-sm text-gray-500 my-1">Default Title</span>
+                                        <span class="block text-sm font-medium text-red-500 my-1">Remove</span>
+                                    </td>
+                                    <td class="py-4 px-2">
+                                        <input type="number" min="1" value="1" class="w-20 border p-2">
+                                    </td>
+                                    <td class="py-4 px-2">$19.99</td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
                         </tbody>
                     </table>
@@ -89,6 +106,14 @@
 {% schema %}
 {
     "name": "Template Cart",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "show_in_design_mode",
+            "label": "Show cart content in theme editor",
+            "default": true
+        }
+    ],
     "blocks": [
         {
             "type": "subtotal",
